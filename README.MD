@@ -24,7 +24,7 @@ Dependency:
     <dependency>
         <groupId>com.github.Valkryst</groupId>
         <artifactId>VUDP</artifactId>
-        <version>1.1.0</version>
+        <version>1.2.0</version>
     </dependency>
 
 ### Jar
