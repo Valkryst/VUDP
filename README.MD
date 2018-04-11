@@ -55,7 +55,7 @@ public class Driver {
         readWriter.start();
 
         for (int i = 0 ; i < 100 ; i++) {
-            final Message sendMessage = new Message("Sending Packet #" + i);
+            final Message sendMessage = new Message("Packet #" + i);
             readWriter.queuePacket(sendMessage.toPacket());
 
             final DatagramPacket packet = readWriter.dequeuePacket();
