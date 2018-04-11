@@ -11,6 +11,7 @@ import java.net.SocketException;
 import java.net.SocketTimeoutException;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.TimeUnit;
 
 public class PacketWriter extends Thread {
     /** The socket to read from. */
@@ -48,9 +49,12 @@ public class PacketWriter extends Thread {
             DatagramPacket packet = null;
 
             try {
-                packet = queue.take();
-                socket.send(packet);
-                queue.remove(packet);
+                packet = queue.poll(10, TimeUnit.SECONDS);
+
+                if (packet != null) {
+                    socket.send(packet);
+                    queue.remove(packet);
+                }
             } catch (final SocketTimeoutException ignored) {
                 // Happens so the `running` var can be re-checked.
             } catch (final IOException | InterruptedException | NullPointerException e) {
@@ -105,13 +109,5 @@ public class PacketWriter extends Thread {
      */
     public void setRunning(final boolean running) {
         this.running = running;
-
-        if (! running && queue.size() == 0) {
-            try {
-                queue.put(new DummyPackage().toPacket());
-            } catch (final InterruptedException | IOException e) {
-                LogManager.getLogger().error(e.getMessage());
-            }
-        }
     }
 }
