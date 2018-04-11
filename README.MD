@@ -1,4 +1,4 @@
-[![Release](https://jitpack.io/v/Valkryst/VUDP.svg)](https://jitpack.io/#Valkryst/VUDP)
+[](https://codebuild.us-east-1.amazonaws.com/badges?uuid=eyJlbmNyeXB0ZWREYXRhIjoiSk5CSnJDUm10YnYwLzIyMnZhOTkxZDVkWlhjUGtuMWFOVEMvNW14ZitUSU5iMWdUdG1WSWlUN1pneDE3L0xUYWZVMFl4M0hzMzdqSEdLTWJJRVQrTFNZPSIsIml2UGFyYW1ldGVyU3BlYyI6ImJqeGlzS3h4ZFVtaHliZ2UiLCJtYXRlcmlhbFNldFNlcmlhbCI6MX0%3D&branch=master)[![Release](https://jitpack.io/v/Valkryst/VUDP.svg)](https://jitpack.io/#Valkryst/VUDP)
 
 ## Jar Files & Maven
 
