@@ -30,3 +30,58 @@ Dependency:
 ### Jar
 
 Jar files can be found on the [releases](https://github.com/Valkryst/VUDP/releases) page.
+
+
+## Example
+
+In this example, we create a `PacketReadWriter`, then we continuously send, receive, and display 100 packets on the local machine.
+
+```java
+package com.valkryst.VUDP;
+
+import lombok.Getter;
+import lombok.NonNull;
+
+import java.io.IOException;
+import java.io.Serializable;
+import java.net.DatagramPacket;
+
+public class Driver {
+    public static void main(String[] args) throws IOException, InterruptedException {
+        final String serverHost = "127.0.0.1";
+        final int serverPort = 9998;
+        final int clientPort = 9998;
+        final PacketReadWriter readWriter = new PacketReadWriter(serverHost, serverPort, clientPort);
+        readWriter.start();
+
+        for (int i = 0 ; i < 100 ; i++) {
+            final Message sendMessage = new Message("Sending Packet #" + i);
+            readWriter.queuePacket(sendMessage.toPacket());
+
+            final DatagramPacket packet = readWriter.dequeuePacket();
+            final Message receivedMessage = (Message) Package.fromPacket(packet);
+            System.out.println("Received Packet: " + receivedMessage.getMessage());
+
+            Thread.sleep(100);
+        }
+
+        readWriter.shutdown();
+    }
+
+    private static class Message implements Package, Serializable {
+        /** The message. */
+        @Getter
+        private final String message;
+
+        /**
+         * Constructs a new Message.
+         *
+         * @param message
+         *          The message.
+         */
+        public Message(final @NonNull String message) {
+            this.message = message;
+        }
+    }
+}
+```
